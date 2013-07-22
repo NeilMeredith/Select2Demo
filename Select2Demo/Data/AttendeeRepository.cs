@@ -59,7 +59,7 @@ namespace Select2Demo.Data
             }
 
             var attendees = new List<Attendee>();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 attendees.Add(
                     new Attendee()

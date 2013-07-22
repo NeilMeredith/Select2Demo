@@ -59,10 +59,14 @@
 
 </script>
 
+    <p>Click in the dropdown box and scroll down to scroll through results.  Start typing to filter results.</p>
+    <p>The list is made up of 1000 in-memory objects.  It can be easily pulled from the database instead.</p>
+
 @using (Html.BeginForm())
 {
-  
     @Html.TextBoxFor(a => a.AttendeeId, new { id = "attendee" })  @Html.ValidationMessageFor(a=>a.AttendeeId)
     <br />
     <button type="submit">Submit</button>
 }
+
+<p>For more code and game programming tips and tricks, visit my site at <a target="_blank" href="http://www.iphonetopapp.com">IPhoneTopApp.com</a></p>
