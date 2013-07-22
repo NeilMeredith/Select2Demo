@@ -1,0 +1,68 @@
+﻿@model Select2Demo.Models.Home.IndexVm
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/css/select2.css" type="text/css" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.0.3.js"></script>
+<script src="~/Scripts/select2.js"></script>
+
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<style>
+    .select2-container {
+        width:200px;
+    }
+</style>
+
+
+
+<script>
+    $(document).ready(function () {
+
+        //The url we will send our get request to
+        var attendeeUrl = '@Url.Action("GetAttendees", "Home")';
+        var pageSize = 20;
+
+        $('#attendee').select2(
+        {
+            placeholder: 'Enter name',
+            //Does the user have to enter any data before sending the ajax request
+            minimumInputLength: 0,            
+            allowClear: true,
+            ajax: {
+                //How long the user has to pause their typing before sending the next request
+                quietMillis: 150,
+                //The url of the json service
+                url: attendeeUrl,
+                dataType: 'jsonp',
+                //Our search term and what page we are on
+                data: function (term, page) {
+                    return {
+                        pageSize: pageSize,
+                        pageNum: page,
+                        searchTerm: term
+                    };
+                },
+                results: function (data, page) {
+                    //Used to determine whether or not there are more results available,
+                    //and if requests for more data should be sent in the infinite scrolling                    
+                    var more = (page * pageSize) < data.Total; 
+                    return { results: data.Results, more: more };
+                }
+            }
+        });
+
+    });
+
+</script>
+
+@using (Html.BeginForm())
+{
+  
+    @Html.TextBoxFor(a => a.AttendeeId, new { id = "attendee" })  @Html.ValidationMessageFor(a=>a.AttendeeId)
+    <br />
+    <button type="submit">Submit</button>
+}
